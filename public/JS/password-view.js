@@ -1,18 +1,16 @@
 const AddWall = document.querySelector('.add-wall');
 const BtnSet1 = document.querySelector('.btn-set1');
-const BtnSet2 = document.querySelector('.btn-set2');
 
-
-document.querySelector('.add-record').addEventListener('click', function(){
+document.querySelector('.add-record').addEventListener('click', function () {
   AddWall.style.display = 'flex';
 });
 
-document.querySelector('.add-cancel').addEventListener('click', function(){
+document.querySelector('.add-cancel').addEventListener('click', function () {
   AddWall.style.display = 'none';
 });
 
 function addRecord(event) {
-  event.preventDefault(); 
+  event.preventDefault();
 
   var platform = document.querySelector(".add-platform").value;
   var username = document.querySelector(".add-username").value;
@@ -20,8 +18,8 @@ function addRecord(event) {
   var retypePassword = document.querySelector(".add-retype-password").value;
 
   if (password !== retypePassword) {
-      alert("Passwords do not match!");
-      return;
+    alert("Passwords do not match!");
+    return;
   }
 
   var tableBody = document.querySelector(".styled-table tbody");
@@ -34,7 +32,7 @@ function addRecord(event) {
       <td>${password}</td>
       </tr>
   `;
-  
+
 
   document.querySelector(".add-platform").value = "";
   document.querySelector(".add-username").value = "";
@@ -42,4 +40,10 @@ function addRecord(event) {
   document.querySelector(".add-retype-password").value = "";
 
   hideAddRecordWindow();
+}
+
+function confirmLogout() {
+  if (confirm("Are you sure you want to logout?")) {
+    window.location.href = "login.html";
+  }
 }

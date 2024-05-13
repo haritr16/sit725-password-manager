@@ -1,39 +1,32 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="\css\form-style.css">
+    <link rel="stylesheet" href=".\css\form-style.css">
     <title>Login</title>
 </head>
+
 <body>
     <div class="main">
-        <h1>Welcome to Password</h1>
-        <h1>User Login</h1>
+        <h1>Welcome to Password Manager</h1><br>
+        <h1>Login</h1>
         <form id="loginForm" action="#" method="POST" onsubmit="return validateCredentials()">
             <div class="lgn input-field">
-                <input class="login-cred" type="text" placeholder="USERNAME" name="uid" id="username" required>
-                <input class="login-cred" type="password" placeholder="PASSWORD" name="psw" id="password" required>
+                <input class="login-cred" type="text" placeholder="USERNAME" name="username" id="uid" required>
+                <input class="login-cred" type="password" placeholder="PASSWORD" name="pwd" id="password" required>
             </div>
             <div class="lgn input-buttons">
                 <input class="btn login" type="submit" value="Login">
-                <a class="btn sign-up link-button" href="/register.html">Sign-up</a>
+                <a class="btn sign-up link-button" href="./signup.html">Sign-up</a>
             </div>
         </form>
     </div>
 
     <script>
         function validateCredentials() {
-            var username = document.getElementsByName("uid")[0].value;
+            var username = document.getElementById("uid").value;
             var password = document.getElementById("password").value;
             var adminPassword = "admin123";
             var adminusername = "admin";
@@ -42,8 +35,10 @@
                 return false; 
             }
             window.location.href = "password-view.html";
+            alert("Login Successful");
             return false; 
         }
     </script>
 </body>
+
 </html>

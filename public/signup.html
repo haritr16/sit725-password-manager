@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/form-style.css">
+    <title>Sign UP</title>
+</head>
+
+<body>
+    <div class="main">
+        <h1>Create Account</h1>
+        <form action="./login.html" method="post" onsubmit="return directLogin()">
+            <div class="lgn input-field">
+                <input class="signup-cred" type="text" placeholder="Username" name="username" required>
+                <input class="signup-cred" type="password" placeholder="Password" name="pwd1" required>
+                <input class="signup-cred" type="password" placeholder="Re-type Password" name="pwd2" required>
+            </div>
+            <div class="lgn input-buttons">
+                <input class="btn signup" type="submit" value="Confirm">
+            </div>
+        </form>
+        <a class="links" href="./login.html">Login Page</a>
+    </div>
+    <script>
+        function directLogin() {
+            window.location.href = "login.html";
+            return false;
+        }
+    </script>
+</body>
+
+</html>
