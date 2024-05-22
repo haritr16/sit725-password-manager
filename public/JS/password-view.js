@@ -8,6 +8,8 @@ document.querySelector('.add-record').addEventListener('click', function () {
 document.querySelector('.add-cancel').addEventListener('click', function () {
   AddWall.style.display = 'none';
 });
+document.addEventListener('DOMContentLoaded', fetchRecords);
+
 
 function addRecord(event) {
   event.preventDefault();
