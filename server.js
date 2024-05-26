@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
-
+let var1= "";
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -21,17 +21,38 @@ const userSchema = new mongoose.Schema({
 });
 
 const recordSchema = new mongoose.Schema({
+    username:String,
     platform: String,
-    username: String,
+    username_platform: String,
     password: String
 });
 
 const User = mongoose.model('User', userSchema);
 const Record = mongoose.model('Record', recordSchema);
 
+// app.post('/signup', async (req, res) => {
+//     try {
+//         const { username, password } = req.body; 
+
+//         const hashedPassword = await bcrypt.hash(password, 10);
+//         const newUser = new User({ username, password: hashedPassword });
+//         await newUser.save();
+
+//         res.status(201).json({ message: 'Account created successfully' });
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ message: 'Internal server error' });
+//     }
+// });
 app.post('/signup', async (req, res) => {
     try {
         const { username, password } = req.body; 
+
+        // Check if the username already exists
+        const existingUser = await User.findOne({ username });
+        if (existingUser) {
+            return res.status(400).json({ message: 'Username already exists' });
+        }
 
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = new User({ username, password: hashedPassword });
@@ -44,9 +65,12 @@ app.post('/signup', async (req, res) => {
     }
 });
 
+
 app.post('/login', async (req, res) => {
     try {
         const { username, password } = req.body;
+        
+        var1 = username;
         const user = await User.findOne({ username });
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
@@ -64,15 +88,17 @@ app.post('/login', async (req, res) => {
 
 app.post('/add-record', async (req, res) => {
     try {
-        const { platform, username, password } = req.body;
+        const { platform, username_platform, password } = req.body;
+        
 
         console.log('Received data:', req.body);  // Log the received data for debugging
 
         const hashedPassword = await bcrypt.hash(password, 10); // Hash the password before saving
 
         const newRecord = new Record({
+            username: var1,
             platform,
-            username,
+            username_platform,
             password: hashedPassword
         });
 
@@ -93,6 +119,27 @@ app.get('/get-records/:username', async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 });
+
+
+
+// DELETE request to delete a record
+app.delete('/delete-record', async (req, res) => {
+    try {
+        const { username, username_platform } = req.body;
+        if (username !== var1) {
+            return res.status(403).json({ message: 'Forbidden: You can only delete your own records.' });
+        }
+        const record = await Record.findOneAndDelete({ username, username_platform });
+        if (!record) {
+            return res.status(404).json({ message: 'Record not found' });
+        }
+        res.status(200).json({ message: 'Record deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting record:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
 
 app.use(express.static('public'));
 
