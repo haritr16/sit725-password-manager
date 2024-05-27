@@ -108,3 +108,53 @@ function confirmLogout() {
     window.location.href = "login.html";
   }
 }
+
+
+// document.addEventListener('DOMContentLoaded', async () => {
+//   const username = getLoggedInUsername();
+//   if (username) {
+//       document.getElementById('logged-in-username').value = username;
+//       await fetchAndDisplayRecords(username);
+//   } else {
+//       alert("Please log in to view your records.");
+//   }
+// });
+
+// async function fetchAndDisplayRecords(username) {
+//   try {
+//       const response = await fetch(`/api/records/get-records?username=${encodeURIComponent(username)}`);
+//       if (!response.ok) {
+//           throw new Error('Network response was not ok ' + response.statusText);
+//       }
+
+//       const records = await response.json();
+//       console.log('Fetched records:', records);
+
+//       const tableBody = document.querySelector(".styled-table tbody");
+//       tableBody.innerHTML = '';
+
+//       records.forEach(record => {
+//           const newRow = document.createElement('tr');
+//           newRow.innerHTML = `
+//               <th class="selection"><input type="checkbox"></th>
+//               <td>${record.platform}</td>
+//               <td>${record.username_platform}</td>
+//               <td>
+//                   <input type="password" value="${record.password}" class="password-field" readonly>
+//                   <span class="toggle-password" onclick="togglePasswordVisibility(this)">👁️</span>
+//               </td>
+//           `;
+//           tableBody.appendChild(newRow);
+//       });
+//   } catch (error) {
+//       console.error('Error fetching records:', error);
+//       alert('An error occurred while fetching the records.');
+//   }
+// }
+
+
+
+//  // getting username from current session
+//  function getLoggedInUsername() {
+//   return sessionStorage.getItem('username') || localStorage.getItem('username');
+// }

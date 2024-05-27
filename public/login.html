@@ -42,7 +42,7 @@
             const result = await response.json();
             if (response.ok) {
                 const username = data.username;
-                const recordsResponse = await fetch(`/get-records/${username}`);
+                const recordsResponse = await fetch(`/api/records/get-records/${username}`);
                 const records = await recordsResponse.json();
 
                 localStorage.setItem('records', JSON.stringify(records));
