@@ -104,8 +104,9 @@ exports.getRecords = async (req, res) => {
         const { username } = req.params;
         const records = await Record.find({ username: username });
         const decryptedRecords = records.map(record => ({
-            platform: record.platform,
             username: record.username,
+            platform: record.platform,
+            username_platform: record.username_platform,
             password: decrypt({ content: record.password, iv: record.iv })
           }));
         res.status(200).json(decryptedRecords);
