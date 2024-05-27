@@ -1,95 +1,92 @@
 *{
-    margin: 0px;
-    padding: 0px;
-    box-sizing:border-box;
-    font-family: 'Heebo', sans-serif;
-    outline: none;
-  }
-  
-  .link-button {
-    text-decoration: none;
-    color:black;
-    font-family: sans-serif;
-    font-weight:900 !important;
-    font-size: 0.8rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  body{
-      background-image: url('https://images.ctfassets.net/yewqr8zk7e5s/migrated-4572/61ee98fb5087c9873948b5473cfafb16/encryption-encoding-hashing.jpg?fm=webp&w=1920&q=50');
-      background-size: cover; 
-      background-repeat: no-repeat; 
-      background-position: center; 
-      height: 100vh; 
-      margin: 0; 
-      padding: 0;
-    /* background-color: #135D66; */
-  }
-  
-  h1, h3, h5, h6 {
-    color: #FFC374;
-    font-weight : bold ;
-  }
-  
-  .main{
-    height: 100vh;
-    text-align: center;
-    /* padding: 27px; */
-    padding-top: 20vh;
-  }
-  
-  .input-buttons{
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-  }
-  
-  .signup-cred, .login-cred{
-    margin: 5vh 0px;
-    display:block;
-    height: 30px;
-    width: 100%;
-    border: black thin;
-    border-radius: 5px;
-    padding: 10px;
-    font-size: 0.8rem;
-    font-weight: bold;
-    transition: ease 0.2s;
-  }
-  
-  .signup-cred:hover, .login-cred:hover{
-    outline: solid #DD761C medium;
-  }
-   
-  .lgn{
-    margin: 5vh auto;
-    max-width: 400px;
-  }
-  
-  .btn {
-    font-family: sans-serif;
-    background-color: #E8DFCA;   
-    border: 1px rgb(255, 255, 255) solid;
-    border-radius: 4px;
-    height: 30px;
-    width: 47%;
-    font-weight:900;
-    transition: ease 0.2s;
-  }
-  
-  .signup {
-    width: 100% !important;
-  }
-  
-  .btn:hover {
-    background-color: #DD761C;
-    color: white;
-  }
-  
-  .links{
-    text-decoration: underline;
-    color: #FFC374;
-  }
-  
+  margin: 0px;
+  padding: 0px;
+  box-sizing:border-box;
+  font-family: 'Heebo', sans-serif;
+  outline: none;
+}
+
+.link-button {
+  text-decoration: none;
+  color:black;
+  font-family: sans-serif;
+  font-weight:900 !important;
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+body{
+    background-image: url('https://images.ctfassets.net/yewqr8zk7e5s/migrated-4572/61ee98fb5087c9873948b5473cfafb16/encryption-encoding-hashing.jpg?fm=webp&w=1920&q=50');
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center; 
+    height: 100vh; 
+    margin: 0; 
+    padding: 0;
+}
+
+h1, h3, h5, h6 {
+  color: #FFC374;
+  font-weight : bold ;
+}
+
+.main{
+  height: 100vh;
+  text-align: center;
+  padding-top: 20vh;
+}
+
+.input-buttons{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.signup-cred, .login-cred{
+  margin: 5vh 0px;
+  display:block;
+  height: 30px;
+  width: 100%;
+  border: black thin;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  transition: ease 0.2s;
+}
+
+.signup-cred:hover, .login-cred:hover{
+  outline: solid #DD761C medium;
+}
+ 
+.lgn{
+  margin: 5vh auto;
+  max-width: 400px;
+}
+
+.btn {
+  font-family: sans-serif;
+  background-color: #E8DFCA;   
+  border: 1px rgb(255, 255, 255) solid;
+  border-radius: 4px;
+  height: 30px;
+  width: 47%;
+  font-weight:900;
+  transition: ease 0.2s;
+}
+
+.signup {
+  width: 100% !important;
+}
+
+.btn:hover {
+  background-color: #006769;
+  color: white;
+}
+
+.links{
+  text-decoration: underline;
+  color: #FFC374;
+}
