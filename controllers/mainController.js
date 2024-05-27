@@ -1,8 +1,32 @@
 const User = require('../models/userModel');
 const Record = require('../models/recordModel');
 const bcrypt = require('bcrypt');
-
+const crypto = require('crypto');
 let var1 = '';
+const algorithm = 'aes-256-cbc';
+const secretKey = crypto.randomBytes(32);
+
+function encrypt(text) {
+  const iv = crypto.randomBytes(16);
+  const cipher = crypto.createCipheriv(algorithm, secretKey, iv);
+  let encrypted = cipher.update(text, 'utf8', 'hex');
+  encrypted += cipher.final('hex');
+  return {
+    iv: iv.toString('hex'),
+    content: encrypted
+  };
+}
+
+function decrypt(encryptedData) {
+    if (!encryptedData || !encryptedData.iv || !encryptedData.content) {
+        throw new Error('Invalid encrypted data');
+      }
+  const decipher = crypto.createDecipheriv(algorithm, secretKey, Buffer.from(encryptedData.iv, 'hex'));
+  let decrypted = decipher.update(encryptedData.content, 'hex', 'utf8');
+  decrypted += decipher.final('utf8');
+  return decrypted;
+}
+
 
 exports.signup = async (req, res) => {
     try {
@@ -14,7 +38,9 @@ exports.signup = async (req, res) => {
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = new User({ username, password: hashedPassword });
+        const encryptedPassword = encrypt(hashedPassword);
+
+        const newUser = new User({ username, password: encryptedPassword.content, iv: encryptedPassword.iv });
         await newUser.save();
 
         res.status(201).json({ message: 'Account created successfully' });
@@ -33,7 +59,11 @@ exports.login = async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
-        const passwordMatch = await bcrypt.compare(password, user.password);
+        if (!user.password || !user.iv) {
+            return res.status(400).json({ message: 'User record is corrupted or incomplete' });
+          }
+        const decryptedPassword = decrypt({ content: user.password, iv: user.iv });
+        const passwordMatch = await bcrypt.compare(password, decryptedPassword);
         if (!passwordMatch) {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
@@ -48,13 +78,17 @@ exports.addRecord = async (req, res) => {
     try {
         const { platform, username_platform, password } = req.body;
 
-        const hashedPassword = await bcrypt.hash(password, 10);
+        // const hashedPassword = await bcrypt.hash(password, 10);
+        const encryptedPassword = encrypt(password);
 
         const newRecord = new Record({
             username: var1,
             platform,
             username_platform,
-            password: hashedPassword
+            // password: hashedPassword
+            password: encryptedPassword.content,
+            iv: encryptedPassword.iv
+
         });
 
         await newRecord.save();
@@ -69,7 +103,12 @@ exports.getRecords = async (req, res) => {
     try {
         const { username } = req.params;
         const records = await Record.find({ username: username });
-        res.status(200).json(records);
+        const decryptedRecords = records.map(record => ({
+            platform: record.platform,
+            username: record.username,
+            password: decrypt({ content: record.password, iv: record.iv })
+          }));
+        res.status(200).json(decryptedRecords);
     } catch (error) {
         console.error('Error fetching records:', error);
         res.status(500).json({ message: 'Internal server error' });
