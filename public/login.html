@@ -12,7 +12,7 @@
     <div class="main">
         <h1>Welcome to Password Manager</h1><br>
         <h1>Login</h1>
-        <form id="loginForm" action="/api/auth/login" method="POST" onsubmit="return handleLogin(event)">
+        <form id="loginForm" action="/login" method="POST" onsubmit="return handleLogin(event)">
             <div class="lgn input-field">
                 <input class="login-cred" type="text" placeholder="USERNAME" name="username" id="username" required>
                 <input class="login-cred" type="password" placeholder="PASSWORD" name="password" id="password" required>
@@ -42,9 +42,8 @@
             const result = await response.json();
             if (response.ok) {
                 const username = data.username;
-                const recordsResponse = await fetch(`/api/records/get-records/${username}`);
+                const recordsResponse = await fetch(`/get-records/${username}`);
                 const records = await recordsResponse.json();
-
                 localStorage.setItem('records', JSON.stringify(records));
                 window.location.href = '/password-view.html';
             } else {
