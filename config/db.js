@@ -1,4 +1,4 @@
 module.exports = {
-    url: 'mongodb://localhost:27017/yashFormDb'
+    url: process.env.MONGO_URI
   };
   
