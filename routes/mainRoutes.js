@@ -1,11 +1,17 @@
-const express = require('express');
+import express from 'express';
+import { signup, login, addRecord, getRecords, deleteRecord } from '../controllers/mainController.js';
+import path from 'path';
+
 const router = express.Router();
-const mainController = require('../controllers/mainController');
 
-router.post('/signup', mainController.signup);
-router.post('/login', mainController.login);
-router.post('/add-record', mainController.addRecord);
-router.get('/get-records/:username', mainController.getRecords);
-router.delete('/delete-record', mainController.deleteRecord);
+router.post('/signup', signup);
+router.post('/login', login);
+router.post('/add-record', addRecord);
+router.get('/get-records/:username', getRecords);
+router.delete('/delete-record', deleteRecord);
 
-module.exports = router;
+router.get('/', (req, res) => {
+  res.sendFile(path.resolve('public/login.html'));
+});
+
+export default router;

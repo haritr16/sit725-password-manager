@@ -1,13 +1,12 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const recordSchema = new mongoose.Schema({
-    username: String,
-    platform: String,
-    username_platform: String,
-    password: String,
-    iv: String 
+    username: { type: String, required: true },
+    platform: { type: String, required: true },
+    username_platform: { type: String, required: true },
+    password: { type: String, required: true },
+    iv: { type: String, required: true }
 });
 
 const Record = mongoose.model('Record', recordSchema);
-
-module.exports = Record;
+export default Record;

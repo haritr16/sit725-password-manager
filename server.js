@@ -1,32 +1,36 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const mainRoutes = require('./routes/mainRoutes');
-const path = require('path');
+import express from 'express';
+import mongoose from 'mongoose';
+import bodyParser from 'body-parser';
+import mainRoutes from './routes/mainRoutes.js';
+import dbConfig from './config/db.js';
+import path from 'path';
 
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
-const dbConfig = require('./config/db');
-mongoose.connect(dbConfig.url, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => {
-    console.log('Connected successfully to MongoDB');
-  })
-  .catch((error) => {
-    console.error('Error connecting to MongoDB:', error);
-  })
-
+app.use(express.static(path.join(path.resolve(), 'public')));
 app.use('/', mainRoutes);
 
-app.use(express.static(path.join(__dirname, 'public')));
+const port = process.env.PORT || 3000;
 
-app.get('/', (req,res) => {
-  res.sendFile(path.join(__dirname, 'public' , 'login.html'));
-});
+async function startServer() {
+  try {
+    await mongoose.connect(dbConfig.url, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    });
+    console.log('Connected successfully to MongoDB');
 
-const port = 3000;
-app.listen(port, () => {
-    console.log(`Server running on http://localhost:${port}`);
-});
+    app.listen(port, () => {
+      console.log(`Server running on http://localhost:${port}`);
+    });
+  } catch (error) {
+    console.error('Error connecting to MongoDB:', error);
+    process.exit(1);
+  }
+}
+
+startServer();
+
+export default app;
