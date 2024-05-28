@@ -56,7 +56,7 @@ The SIT725 Password Manager is a web application that allows users to securely s
     Ensure you have the following environment variables set (you can use a .env file):
     PORT = 3000 
 
-## Running The Application
+## Running-The-Application
 
 1. Start the server:
     ````bash
@@ -69,7 +69,7 @@ The application will be running at http://localhost:3000.
    ````bash
    npm test
 
-##Directory Structure
+##Directory-Structure
   ````bash
   /project-root
   /config
